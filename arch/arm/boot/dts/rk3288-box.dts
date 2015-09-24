@@ -16,7 +16,7 @@
                  * rtl8188eu, rtl8723bs, rtl8723bu
                  * esp8089
 		*/
-		wifi_chip_type = "ap6335";
+		wifi_chip_type = "ap6330";
 
         sdio_vref = <1800>; //1800mv or 3300mv
 
@@ -103,7 +103,7 @@
 			};
 		};
 	};
-	
+
 	rockchip-hdmi-spdif {
 		compatible = "rockchip-hdmi-spdif";
 		dais {
@@ -113,6 +113,7 @@
 			};
 		};
 	};
+
 	rockchip-rk1000 {
 		compatible = "rockchip-rk1000";
 		dais {
@@ -159,10 +160,11 @@
 
 &pinctrl {
 	//used for init some gpio
-	
+
 	init-gpios = <&gpio8 GPIO_A1 GPIO_ACTIVE_HIGH
-		&gpio7 GPIO_B1 GPIO_ACTIVE_HIGH		
+		&gpio7 GPIO_B1 GPIO_ACTIVE_HIGH
 		&gpio4 GPIO_B0 GPIO_ACTIVE_HIGH>;
+
 	gpio0_gpio {
 			gpio0_c2: gpio0-c2 {
 				rockchip,pins = <GPIO0_C2>;
@@ -171,7 +173,7 @@
 
 			//to add
 		};
-		
+
 	gpio7_gpio {
 			gpio7_a7: gpio7-a7 {
 				rockchip,pins = <GPIO7_A7>;
@@ -205,16 +207,19 @@
 		};
 	};
 };
+
 &nandc0 {
 	status = "disabled"; // used nand set "okay" ,used emmc set "disabled"
 };
+
 &nandc1 {
 	status = "disabled"; // used nand set "okay" ,used emmc set "disabled"
-};   
+};
 
 &nandc0reg {
 	status = "disabled"; // used nand set "okay" ,used emmc set "disabled"
 };
+
 &emmc {
 	clock-frequency = <100000000>;
 	clock-freq-min-max = <400000 100000000>;
@@ -222,16 +227,16 @@
         supports-highspeed;
 	supports-emmc;
         bootpart-no-access;
-	//supports-tSD;//only tsd-sdcard mode 
+	//supports-tSD;//only tsd-sdcard mode
 	supports-DDR_MODE;
 	caps2-mmc-hs200;
 
         ignore-pm-notify;
 		keep-power-in-suspend;
-		//poll-hw-reset 
+		//poll-hw-reset
 		status = "okay";
 };
-    
+
 &sdmmc {
 		clock-frequency = <50000000>;
 		clock-freq-min-max = <400000 50000000>;
@@ -242,11 +247,11 @@
 
 		ignore-pm-notify;
         	keep-power-in-suspend;
-	
+
         	vmmc-supply = <&ldo1_reg>;
 		status = "okay";
 };
-		
+
 &sdio {
 		clock-frequency = <50000000>;
 		clock-freq-min-max = <200000 50000000>;
@@ -260,7 +265,7 @@
 
 &spi0 {
 	status = "disabled";
-	max-freq = <48000000>;	
+	max-freq = <48000000>;
 	/*
 	spi_test@00 {
      		compatible = "rockchip,spi_test_bus0_cs0";
@@ -282,7 +287,7 @@
 		spi-cpol;
 	        poll_mode = <0>;
 	        type = <0>;
-		enable_dma = <0>;	        
+		enable_dma = <0>;
 	};
 	*/
 };
@@ -341,17 +346,19 @@
 
 &i2c0 {
 	status = "okay";
+
 	rk808: rk808@1b {
 		reg = <0x1b>;
 		status = "okay";
 	};
+
 		syr827: syr827@40 {
 		compatible = "silergy,syr82x";
   	reg = <0x40>;
 		status = "okay";
 		regulators {
 			#address-cells = <1>;
-			#size-cells = <0>;	
+			#size-cells = <0>;
 			syr827_dc1: regulator@0 {
 			reg = <0>;
 			regulator-compatible = "syr82x_dcdc1";
@@ -370,13 +377,14 @@
 		};
 	   };
 	};
+
 	syr828: syr828@41 {
 		compatible = "silergy,syr82x";
 		reg = <0x41>;
 		status = "okay";
 		regulators {
 			#address-cells = <1>;
-			#size-cells = <0>;	
+			#size-cells = <0>;
 			syr828_dc1: regulator@0 {
 			reg = <0>;
 			regulator-compatible = "syr82x_dcdc1";
@@ -391,15 +399,16 @@
 				regulator-state-mode = <0x2>;
 				regulator-state-disabled;
 				regulator-state-uv = <900000>;
-			};	
+			};
 		};
 	   };
 	};
+
 	act8846: act8846@5a {
 		reg = <0x5a>;
 		status = "okay";
 	};
-	
+
 	rtc@51 {
 		compatible = "rtc,hym8563";
 		reg = <0x51>;
@@ -434,6 +443,7 @@
 		//pinctrl-names = "default";
 		//pinctrl-0 = <&i2s_mclk>;
 	};
+
 	rk1000_tve@42 {
 		compatible = "rockchip,rk1000_tve";
 		reg = <0x42>;
@@ -441,6 +451,7 @@
 		rockchip,source = <0>; //0: LCDC0; 1: LCDC1
 		rockchip,prop = <PRMRY>;//<EXTEND>
 	};
+
 	rk1000_codec: rk1000_codec@60 {
 		compatible = "rockchip,rk1000_codec";
 		reg = <0x60>;
@@ -455,7 +466,8 @@
 };
 
 &fb {
-	rockchip,disp-mode = <DUAL>;
+	rockchip,disp-mode = <NO_DUAL>;
+	rockchip,uboot-logo-on = <1>;
 };
 
 &rk_screen {
@@ -481,7 +493,7 @@
 			gpios = <&gpio7 GPIO_A3 GPIO_ACTIVE_HIGH>;
 			rockchip,delay = <10>;
 		};
-		
+
 		lcd_cs:lcd_cs {
 			rockchip,power_type = <GPIO>;
 			gpios = <&gpio7 GPIO_A4 GPIO_ACTIVE_HIGH>;
@@ -498,7 +510,7 @@
 };
 
 &lcdc1 {
-	status = "okay";
+	status = "disabled";
 	rockchip,mirror = <ROTATE_270>;
 
 };
@@ -516,18 +528,18 @@
 		headset_gpio = <&gpio7 GPIO_A7 GPIO_ACTIVE_LOW>;
 		pinctrl-names = "default";
 		pinctrl-0 = <&gpio7_a7>;
-		io-channels = <&adc 2>; 
+		io-channels = <&adc 2>;
        /*
                hook_gpio = ;
-               hook_down_type = ; //interrupt hook key down status 
-		*/       
+               hook_down_type = ; //interrupt hook key down status
+		*/
        };
 
 	key {
 		compatible = "rockchip,key";
 		/*
 		io-channels = <&adc 1>;
-		
+
 		vol-up-key {
 			linux,code = <115>;
 			label = "volume up";
@@ -582,7 +594,6 @@
 	status = "okay";
 };
 
-
 &clk_core_dvfs_table {
 	support-pvtm = <1>;
 	pvtm-operating-points = <
@@ -622,7 +633,7 @@
 	operating-points = <
 		/* KHz    uV */
 		200000 1075000
-		300000 1075000		
+		300000 1075000
 		456000 1125000
 //		533000 1150000
 		>;
@@ -646,13 +657,14 @@
 	auto-freq=<0>;
 	status="okay";
 };
+
 /include/ "act8846.dtsi"
 &act8846 {
 	gpios =<&gpio7 GPIO_A1 GPIO_ACTIVE_LOW>,<&gpio0 GPIO_B2 GPIO_ACTIVE_HIGH>;
 	act8846,system-power-controller;
 
 	regulators {
-		
+
 		dcdc1_reg: regulator@0{
 			regulator-name= "act_dcdc1";
 			regulator-min-microvolt = <1200000>;
@@ -669,7 +681,7 @@
 			regulator-state-mem {
 				regulator-state-enabled;
 				regulator-state-uv = <3300000>;
-			};		
+			};
 		};
 
 		dcdc3_reg: regulator@2 {
@@ -680,8 +692,8 @@
 			regulator-state-mem {
 				regulator-state-enabled;
 				regulator-state-uv = <1200000>;
-			};		
-		
+			};
+
 		};
 
 		dcdc4_reg: regulator@3 {
@@ -699,35 +711,35 @@
 			regulator-name= "vccio_sd";
 			regulator-min-microvolt = <1800000>;
 			regulator-max-microvolt = <3300000>;
-			
+
 		};
 
 		ldo2_reg: regulator@5 {
 			regulator-name= "act_ldo2";
 			regulator-min-microvolt = <1050000>;
 			regulator-max-microvolt = <1050000>;
-		
+
 		};
 
 		ldo3_reg: regulator@6 {
 			regulator-name= "act_ldo3";
 			regulator-min-microvolt = <1800000>;
 			regulator-max-microvolt = <1800000>;
-			
+
 		};
 
 		ldo4_reg:regulator@7 {
 			regulator-name= "act_ldo4";
 			regulator-min-microvolt = <3300000>;
 			regulator-max-microvolt = <3300000>;
-		
+
 		};
 
 		ldo5_reg: regulator@8 {
 			regulator-name= "act_ldo5";
 			regulator-min-microvolt = <3300000>;
 			regulator-max-microvolt = <3300000>;
-		
+
 		};
 
 		ldo6_reg: regulator@9 {
@@ -738,7 +750,7 @@
 			regulator-state-mem {
 				regulator-state-enabled;
 			};
-			
+
 		};
 
 		ldo7_reg: regulator@10 {
@@ -749,14 +761,14 @@
 			regulator-state-mem {
 				regulator-state-enabled;
 			};
-		
+
 		};
 
 		ldo8_reg: regulator@11 {
 			regulator-name= "act_ldo8";
 			regulator-min-microvolt = <1850000>;
 			regulator-max-microvolt = <1850000>;
-		
+
 		};
 	};
 };
@@ -767,7 +779,7 @@
 	rk808,system-power-controller;
 
 	regulators {
-		
+
 		rk808_dcdc1_reg: regulator@0{
 			regulator-name= "vdd_arm";
 			regulator-always-on;
@@ -831,7 +843,7 @@
 			regulator-always-on;
 			regulator-boot-on;
 		};
-    
+
     /* SDMMC IO, 3.3V*/
 		rk808_ldo5_reg: regulator@8 {
 			regulator-name= "rk_ldo5";
@@ -840,7 +852,7 @@
 			regulator-always-on;
 			regulator-boot-on;
 		};
-    
+
     /* CAMERA, 1.8V  box modify*/
 		rk808_ldo6_reg: regulator@9 {
 			regulator-name= "rk_ldo6";
@@ -886,31 +898,31 @@
 	regulator-name = "vcc30_lcd";
 	};
 &dpio_vdd_domain{
-	regulator-name = "vcc18_cif";	
+	regulator-name = "vcc18_cif";
 	};
 &flash0_vdd_domain{
-	regulator-name = "vcc_flash";	
+	regulator-name = "vcc_flash";
 	};
 &flash1_vdd_domain{
-	regulator-name = "vcc_flash";			
+	regulator-name = "vcc_flash";
 	};
 &apio3_vdd_domain{
-	regulator-name = "vccio_wl";		
+	regulator-name = "vccio_wl";
 	};
 &apio5_vdd_domain{
-	regulator-name = "vccio";		
+	regulator-name = "vccio";
 	};
 &apio4_vdd_domain{
-	regulator-name = "vccio";		
+	regulator-name = "vccio";
 	};
 &apio1_vdd_domain{
-	regulator-name = "vccio";			
+	regulator-name = "vccio";
 	};
 &apio2_vdd_domain{
-	regulator-name = "vccio";		
+	regulator-name = "vccio";
 	};
 &sdmmc0_vdd_domain{
-	regulator-name = "vcc_sd";			
+	regulator-name = "vcc_sd";
 	};
 
 &dwc_control_usb {
